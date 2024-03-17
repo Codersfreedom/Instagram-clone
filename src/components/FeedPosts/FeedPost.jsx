@@ -12,7 +12,7 @@ const FeedPost = ({img,username,avatar}) => {
             <Image src ={img} alt  ='user pic'  />
         </Box>
 
-      <PostFooter  username ={username}  />
+      <PostFooter  username ={username} isProfilePage={false}  />
     </div>
   )
 }
