@@ -51,7 +51,7 @@ const Sidebar = () => {
 					display={{ base: "block", md: "none" }}
 				>
 					<Flex
-						onClick={logout}
+						
 						alignItems={"center"}
 						gap={4}
 						_hover={{ bg: "whiteAlpha.400" }}
@@ -63,6 +63,7 @@ const Sidebar = () => {
 					>
 						<BiLogOut size={25} />
 						<Button
+							onClick={logout}
 							display={{ base: "none", md: "block" }}
 							variant={"ghost"}
 							_hover={{ bg: "transparent" }}

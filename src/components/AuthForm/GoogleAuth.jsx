@@ -1,16 +1,18 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
-import React from 'react'
+import useSignupWithGoogle from "../../hooks/useSignupWithGoogle";
 
 
-const GoogleAuth = () => {
-    const handleGoogleAuth = () => {
-        console.log("Google Auth")
-    }
+
+const GoogleAuth = ({prefix}) => {
+
+  const {singInWithGoogle} = useSignupWithGoogle();
+
+    
   return (
-    <Flex alignItems={"center"} justifyContent={"center"} cursor={"pointer"} onClick={handleGoogleAuth}>
+    <Flex alignItems={"center"} justifyContent={"center"} cursor={"pointer"} onClick={singInWithGoogle}>
     <Image src='/google.png' w={5} alt='Google logo' />
-    <Text mx='2' color={"blue.500"}>
-        login with Google
+    <Text mx='2' color={"blue.500"}  >
+        {prefix} with Google
     </Text>
 </Flex>
   )

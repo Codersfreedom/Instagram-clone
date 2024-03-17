@@ -1,10 +1,12 @@
 import { Avatar, Box, Tooltip } from '@chakra-ui/react'
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
+import useAuthStore from '../../store/authStore';
+
 
 const ProfileLink = () => {
 
-const authUser = false;
+const {user} = useAuthStore();
 
   return (
     <Tooltip
@@ -17,7 +19,7 @@ const authUser = false;
 >   
     <ChakraLink
         display={"flex"}
-        to={`/${authUser?.username}`}
+        to={`/${user?.username}`}
         as={RouterLink}
         alignItems={"center"}
         gap={4}
@@ -27,7 +29,7 @@ const authUser = false;
         w={{ base: 10, md: "full" }}
         justifyContent={{ base: "center", md: "flex-start" }}
     >
-        <Avatar size={"sm"} src={authUser?.profilePicURL || ""} />
+        <Avatar size={"sm"} name={user?.username} src={user?.profilePicURL || "" } />
         <Box display={{ base: "none", md: "block" }}>Profile</Box>
     </ChakraLink>
 </Tooltip>
