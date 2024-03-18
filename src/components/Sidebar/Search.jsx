@@ -1,14 +1,20 @@
 import React, { useRef } from 'react'
 import { SearchLogo } from '../../assets/constants'
 import { Box, Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Tooltip, useDisclosure } from '@chakra-ui/react'
+import useSearchUser from '../../hooks/useSearchUser';
+import SuggestedUser from '../SuggestedUsers/SuggestedUser';
 
 const Search = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const searchRef = useRef(null);
-    const { user, isLoading } = false;
-    const handleSearchUser = ()=>{
+    const { user,setUser,isLoading,getUser } = useSearchUser();
 
-    }
+	const handleSearchUser =(e)=>{
+		e.preventDefault();
+		getUser(searchRef.current.value);
+	}
+	
+
   return (
     <>
       <Tooltip
@@ -47,12 +53,14 @@ const Search = () => {
 							</FormControl>
 
 							<Flex w={"full"} justifyContent={"flex-end"}>
-								<Button type='submit' ml={"auto"} size={"sm"} my={4} isLoading={isLoading}>
+								<Button type='submit' ml={"auto"} size={"sm"} my={4} isLoading={isLoading}
+								
+								>
 									Search
 								</Button>
 							</Flex>
 						</form>
-						{user && <SuggestedUser user={user} setUser={setUser} />}
+						{user && <SuggestedUser user={user} setUser={setUser}  />}
 					</ModalBody>
 				</ModalContent>
 			</Modal>
