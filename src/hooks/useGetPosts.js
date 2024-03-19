@@ -4,6 +4,7 @@ import useProfileStore from "../store/UserProfileStore";
 import useShowToast from "./useShowToast";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "../firebase/firebase";
+import useAuthStore from "../store/authStore";
 
 
 const useGetPosts = () => {
@@ -12,12 +13,13 @@ const useGetPosts = () => {
     const showToast = useShowToast();
     const{posts,setPosts} = usePostStore();
     const {userProfile} = useProfileStore();
+    const{user} = useAuthStore();
 
     useEffect(()=>{
         const getPosts =async () =>{
             setIsLoading(true);
             try {
-                const q = query(collection(firestore,"posts"),where("createdBy","==",userProfile.uid))
+                const q = query(collection(firestore,"posts"),where("createdBy","==",user?.uid))
                 const querySnapShot = await getDocs(q);
     
                 const posts =[];
