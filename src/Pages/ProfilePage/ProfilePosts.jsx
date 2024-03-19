@@ -1,15 +1,17 @@
 import { Box, Grid, Skeleton, VStack } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
 import ProfilePost from './ProfilePost';
+import useGetPosts from '../../hooks/useGetPosts';
+import NoPostsFound from './NoPostsFound';
+
 
 const ProfilePosts = () => {
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 2000)
-  }, [])
+
+  const { isLoading, posts } = useGetPosts();
+
+
+  if (posts.length == 0) return <NoPostsFound />
+
 
   return (
     <Grid
@@ -26,15 +28,19 @@ const ProfilePosts = () => {
         </VStack>
       ))}
 
-      {!isLoading && (
+      {!isLoading && posts.length > 0 && (
         <>
 
-          <ProfilePost img = "/img1.png" />
-          <ProfilePost img = "/img2.png" />
-          <ProfilePost img = "/img3.png" />
+          {posts.map((post) =>
+
+            <ProfilePost key={post.id} post={post} />
+          )}
+
         </>
 
       )}
+
+
     </Grid>
   )
 }
