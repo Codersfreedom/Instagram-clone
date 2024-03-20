@@ -1,21 +1,31 @@
 import { Avatar, Flex, Text } from '@chakra-ui/react'
-import React from 'react'
+import useGetUsernameByPostId from '../../hooks/useGetUsernameByPostId'
+import { useEffect } from 'react';
 
-const Comment = ({ createdAt, username, profilePic, text }) => {
+const Comment = ( {comment} ) => {
+  const {user, getUsernameByPostId} = useGetUsernameByPostId();
+
+ useEffect(()=>{
+    const fetchUser =async ()=>{
+        await getUsernameByPostId(comment?.createdBy)
+    }
+    if(comment) fetchUser();
+ },[comment])
+ 
     return (
         <Flex gap={4} >
-            <Avatar src={profilePic} alt='profile picture' name={username} size={"sm"} />
+            <Avatar src={user?.profilePicURL} alt='profile picture' name={user?.fullname} size={"sm"} />
             <Flex direction={"column"}>
                 <Flex gap={2}>
 
                     <Text fontWeight={"bold"} fontSize={12}>
-                        {username}
+                        {user?.username}
                     </Text>
                     <Text fontSize={14}>
-                        {text}
+                        {comment?.comment}
                     </Text>
                 </Flex>
-                <Text fontSize={12} color={"gray"} >{createdAt}</Text>
+                <Text fontSize={12} color={"gray"} >{comment?.createdAt}</Text>
             </Flex>
 
         </Flex>

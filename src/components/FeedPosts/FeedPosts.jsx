@@ -9,7 +9,7 @@ const FeedPosts = () => {
 
   const {isLoading,posts} = useGetPosts();
 
-console.log(posts)
+
   return (
     <Container maxW={"container.sm"} py={10} px={2}>
       {isLoading && [0, 1, 2, 3].map((_, idx) => (

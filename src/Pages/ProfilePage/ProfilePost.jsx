@@ -93,8 +93,8 @@ const ProfilePost = ({ post }) => {
                                     <Flex alignItems={"center"} justifyContent={"space-between"} >
                                         <Flex alignItems={"center"} gap={4}>
 
-                                            <Avatar src={userProfile.profilePicURL} size={'sm'} name={userProfile.fullname} />
-                                            <Text fontWeight={"bold"} fontSize={12} > {userProfile.fullname}</Text>
+                                            <Avatar src={userProfile?.profilePicURL} size={'sm'} name={userProfile?.fullname} />
+                                            <Text fontWeight={"bold"} fontSize={12} > {userProfile?.fullname}</Text>
 
                                         </Flex>
 
@@ -108,17 +108,15 @@ const ProfilePost = ({ post }) => {
                                 </Flex>
                                 <Divider my={4} bg={"gray.500"} />
                                 <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflow={"auto"} >
-                                    <Comment
-                                        createdAt={"2d ago"}
-                                        username={"rakesh"}
-                                        profilePic={'/profilepic.png'}
-                                        text={'Nice pic'}
-                                    />
+                                    {post.comments.map((comment) =>(
+                                        <Comment key={comment.id} comment={comment} />
+                                    ))}
+                                    
 
 
                                 </VStack>
                                 <Divider my={4} bg={"gray.8000"} />
-                                <PostFooter username={'rakesh'} isProfilePage={true} />
+                                <PostFooter post={post} username={'rakesh'} isProfilePage={true} />
                             </Flex>
                         </Flex>
                     </ModalBody>
