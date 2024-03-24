@@ -8,6 +8,7 @@ import useProfileStore from '../../store/UserProfileStore'
 import useAuthStore from '../../store/authStore'
 import useDeletePost from '../../hooks/useDeletePost'
 const ProfilePost = ({ post }) => {
+    
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { userProfile } = useProfileStore();
     const { user } = useAuthStore();
@@ -50,17 +51,17 @@ const ProfilePost = ({ post }) => {
                     <Flex alignItems={"center"} justifyContent={"center"} gap={50}>
                         <Flex alignItems={"center"} gap={1} >
                             <AiFillHeart size={20} />
-                            <Text fontWeight={"bold"}  >{post.likes.length}</Text>
+                            <Text fontWeight={"bold"}  >{post?.likes.length}</Text>
 
                         </Flex>
                         <Flex alignItems={"center"} gap={1} >
                             <FaComment size={20} />
-                            <Text fontWeight={"bold"}>{post.comments.length}</Text>
+                            <Text fontWeight={"bold"}>{post?.comments.length}</Text>
                         </Flex>
 
                     </Flex>
                 </Flex>
-                <Image src={post.imageURL} alt='profile post' w={"100%"} h={"100%"} objectFit={"cover"} />
+                <Image src={post?.imageURL} alt='profile post' w={"100%"} h={"100%"} objectFit={"cover"} />
             </GridItem>
 
             {/* Modal here */}
@@ -85,7 +86,7 @@ const ProfilePost = ({ post }) => {
                                 justifyContent={"center"}
                                 alignItems={'center'}
                             >
-                                <Image src={post.imageURL} alt='profile post' />
+                                <Image src={post?.imageURL} alt='profile post' />
                             </Flex>
                             <Flex flex={1} flexDir={"column"} px={10} display={{ base: 'none', md: "flex" }} >
                                 <Flex alignItems={"center"} justifyContent={"space-between"} >
@@ -120,8 +121,8 @@ const ProfilePost = ({ post }) => {
                             </Flex>
                         </Flex>
                     </ModalBody>
-                    <ModalFooter>
-                        <Button onClick={onClose}>Close</Button>
+                    <ModalFooter bg={"black"}>
+                       <Button onClick={onClose} >Close</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

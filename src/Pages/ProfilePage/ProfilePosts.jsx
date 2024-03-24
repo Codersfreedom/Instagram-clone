@@ -1,16 +1,16 @@
 import { Box, Grid, Skeleton, VStack } from '@chakra-ui/react'
 import ProfilePost from './ProfilePost';
-import useGetPosts from '../../hooks/useGetPosts';
 import NoPostsFound from './NoPostsFound';
+import useGetPostByUserId from '../../hooks/useGetPostByUserId';
 
 
 const ProfilePosts = () => {
 
 
-  const { isLoading, posts } = useGetPosts();
+  const {  posts,isLoading } = useGetPostByUserId();
 
 
-  if (posts.length == 0) return <NoPostsFound />
+  if (posts?.length == 0) return <NoPostsFound />
 
 
   return (
@@ -28,7 +28,7 @@ const ProfilePosts = () => {
         </VStack>
       ))}
 
-      {!isLoading && posts.length > 0 && (
+      {!isLoading && posts?.length > 0 && (
         <>
 
           {posts.map((post) =>

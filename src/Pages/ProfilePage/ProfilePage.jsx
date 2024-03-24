@@ -1,5 +1,4 @@
 import { Container, Flex, Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react'
-import React from 'react'
 import ProfileTabs from './ProfileTabs'
 import ProfilePosts from './ProfilePosts'
 import ProfileHeader from './ProfileHeader'

@@ -1,21 +1,35 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PostHeader from './PostHeader'
 import PostFooter from './PostFooter'
-import { Box,Image } from '@chakra-ui/react'
+import { Box,Flex,Image, Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react'
+import useGetUsernameByPostId from '../../hooks/useGetUsernameByPostId'
 
 const FeedPost = ({post}) => {
-console.log(post)
+
+
+
+  const {user} = useGetUsernameByPostId(post?.createdBy);
+
+  
+
+
   return (
-    <div>
-      <PostHeader username ={post.username} avatar={'something'} />
+
+    <>
+     
+
+      <PostHeader post={post} user ={user} />
+      
       
         <Box my={2} borderRadius={4} overflow={"hidden"}  >
-            <Image src ={post.imageURL} alt  ='user pic'  />
+            <Image src ={post?.imageURL} alt  ='user pic'  />
         </Box>
 
-      <PostFooter  username ={"username"} isProfilePage={false}  />
-    </div>
+      <PostFooter post={post}  username ={user?.username} isProfilePage={false}  />
+    </>
   )
 }
+
+
 
 export default FeedPost

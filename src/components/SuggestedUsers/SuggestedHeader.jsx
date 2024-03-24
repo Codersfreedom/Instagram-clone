@@ -27,7 +27,8 @@ const SuggestedHeader = () => {
                 fontWeight={"medium"}
                 color={"blue.400"}
                 cursor={"pointer"}
-                _hover={{background:"transparent"}}
+                _hover={{color:"white"}}
+                transition={"0.2s ease-in-out"}
                 isLoading={loading}
                 onClick={logout}
             >

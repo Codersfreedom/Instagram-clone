@@ -1,33 +1,34 @@
-import  { useState } from 'react'
-import useShowToast from './useShowToast'
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { firestore } from '../firebase/firebase';
+import { useEffect, useState } from "react";
+import useShowToast from "./useShowToast";
+import {  doc, getDoc } from "firebase/firestore";
+import { firestore } from "../firebase/firebase";
 
-const useGetUsernameByPostId = () => {
-    const showToast = useShowToast();
-    const [user,setUser] = useState();
+const useGetUsernameByPostId = (Id) => {
+  const showToast = useShowToast();
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsloading] = useState(false);
 
-    const getUsernameByPostId = async (Id) => {
-       try {
-            const q =  query(collection(firestore,"users"),where("uid", "==",Id))
-            const querySnapshot = await getDocs(q);
+  useEffect(() => {
+    const getUsernameByPostId = async () => {
+      
+      setIsloading(true);
+      setUser(null);
+      try {
+        const userRef = await getDoc(doc(firestore, "users", Id));
+				if (userRef.exists()) {
+					setUser(userRef.data());
+        }
 
-            if(querySnapshot.empty){
-                setUser(null)
-                return;
-            }
-            
-            querySnapshot.forEach((doc)=>{
-                setUser(doc.data());
-            })
-            
-            
+      
+      } catch (error) {
+        showToast("Error", error.message, "error");
+      } finally {
+        setIsloading(false);
+      }
+    };
+    getUsernameByPostId();
+  }, [showToast, setUser, Id]);
+  return { user, isLoading,setUser };
+};
 
-       } catch (error) {
-        showToast("Error",error.message,"error");
-       }
-    }
-    return {user,getUsernameByPostId}
-}
-
-export default useGetUsernameByPostId
+export default useGetUsernameByPostId;

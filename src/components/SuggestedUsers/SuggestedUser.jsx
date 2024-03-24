@@ -1,5 +1,6 @@
 import { Avatar, Box, Button, Flex, VStack } from '@chakra-ui/react'
 import useFollowUser from '../../hooks/useFollowUser'
+import { Link } from 'react-router-dom';
 
 
 const SuggestedUser = ({user,setUser}) => {
@@ -20,7 +21,10 @@ const SuggestedUser = ({user,setUser}) => {
         <Avatar src={user?.profilePicURL} name={user?.fullname} size={'md'} />
         <VStack spacing={2} alignItems={"flex-start"}>
             <Box fontSize={12} fontWeight={"bold"} >
+              <Link to={`/${user?.username}`}>
                 {user?.fullname}
+              
+              </Link>
 
             </Box>
             <Box fontSize={11} color={"gray.500"}>

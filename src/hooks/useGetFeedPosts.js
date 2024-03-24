@@ -18,8 +18,13 @@ const useGetPosts = () => {
     useEffect(()=>{
         const getPosts =async () =>{
             setIsLoading(true);
+            if(user.following.length ===0){
+                setIsLoading(false)
+                setPosts([])
+                return
+            }
+            const q = query(collection(firestore,"posts"),where("createdBy","in",user?.following))
             try {
-                const q = query(collection(firestore,"posts"),where("createdBy","==",user?.uid))
                 const querySnapShot = await getDocs(q);
     
                 const posts =[];
@@ -40,8 +45,8 @@ const useGetPosts = () => {
             }
         }
 
-        getPosts();
-    },[setPosts,userProfile,showToast])
+        if(user) getPosts();
+    },[user,setPosts,userProfile,showToast])
 
    
     return {isLoading,posts}
