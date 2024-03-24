@@ -5,7 +5,7 @@ import useFollowUser from '../../hooks/useFollowUser'
 
 
 const PostHeader = ({ post, user }) => {
-  const { isFollowing, isLoading, handleFollowUser } = useFollowUser(user?.uid)
+  const { isFollowing, isLoading, handleFollowUser } = useFollowUser(post.createdBy)
 
 
 

@@ -29,7 +29,7 @@ const usePostComment = () => {
             await updateDoc(doc(firestore,"posts",postId),{
                 comments:arrayUnion(newComment)
             })
-            addComment(postId,comment)
+            addComment(postId,newComment)
             showToast("Success","Comment posted successfully","success");
         } catch (error) {
             showToast("Error",error.message,"error");

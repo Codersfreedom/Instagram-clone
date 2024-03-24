@@ -31,11 +31,13 @@ const useFollowUser = (userId) => {
           ...user,
           following: user.following.filter((uid) => uid !== userId),
         });
-        
+        if(userProfile){
           setUserProfile({
             ...userProfile,
             followers: userProfile.followers.filter((uid) => uid !== user.uid),
           });
+        }
+          
         
         localStorage.setItem(
           "user",
@@ -53,10 +55,13 @@ const useFollowUser = (userId) => {
           following: [...user.following, userId],
         });
         
+        if(userProfile){
           setUserProfile({
             ...userProfile,
             followers: [...userProfile.followers, user.uid],
           });
+        }
+          
         
 
         localStorage.setItem(
@@ -82,7 +87,7 @@ const useFollowUser = (userId) => {
       const isFollowing = user.following.includes(userId);
       setIsFollowing(isFollowing);
     }
-  }, [user, userId, showToast]);
+  }, [user, userId]);
 
   return { isLoading, isFollowing, handleFollowUser };
 };
