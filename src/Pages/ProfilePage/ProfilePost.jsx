@@ -7,20 +7,37 @@ import PostFooter from '../../components/FeedPosts/PostFooter'
 import useProfileStore from '../../store/UserProfileStore'
 import useAuthStore from '../../store/authStore'
 import useDeletePost from '../../hooks/useDeletePost'
+import { useEffect, useRef } from 'react'
 const ProfilePost = ({ post }) => {
-    
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { userProfile } = useProfileStore();
     const { user } = useAuthStore();
+    const commentBoxRef = useRef(null);
 
-    const {isLoading,deletePost} = useDeletePost();
+    const { isLoading, deletePost } = useDeletePost();
 
-    const handleDeletePost =async () =>{
-        
+    const handleDeletePost = async () => {
+
         await deletePost(post.id)
         onClose();
 
     }
+
+
+    useEffect(() => {
+        const scrollToBottom = () => {
+            commentBoxRef.current.scrollTop = commentBoxRef.current.scrollHeight;
+        }
+        if (isOpen) {
+            setTimeout(() => {
+                scrollToBottom()
+            }, 100)
+        }
+
+    }, [isOpen, post.comments.length])
+
+
     return (
         <>
 
@@ -108,11 +125,11 @@ const ProfilePost = ({ post }) => {
                                     )}
                                 </Flex>
                                 <Divider my={4} bg={"gray.500"} />
-                                <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflow={"auto"} >
-                                    {post.comments.map((comment) =>(
+                                <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflow={"auto"} ref={commentBoxRef} >
+                                    {post.comments.map((comment) => (
                                         <Comment key={comment.id} comment={comment} />
                                     ))}
-                                    
+
 
 
                                 </VStack>
@@ -122,7 +139,7 @@ const ProfilePost = ({ post }) => {
                         </Flex>
                     </ModalBody>
                     <ModalFooter bg={"black"}>
-                       <Button onClick={onClose} >Close</Button>
+                        <Button onClick={onClose} >Close</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

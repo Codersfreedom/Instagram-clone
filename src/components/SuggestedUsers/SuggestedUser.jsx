@@ -18,7 +18,10 @@ const SuggestedUser = ({user,setUser}) => {
   return (
     <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
       <Flex alignItems={"center"} gap={2}>
-        <Avatar src={user?.profilePicURL} name={user?.fullname} size={'md'} />
+        <Link to ={`/${user.username}`}>
+        <Avatar src={user?.profilePicURL} name={user?.fullname} cursor={"pointer"} size={'md'} />
+        
+        </Link>
         <VStack spacing={2} alignItems={"flex-start"}>
             <Box fontSize={12} fontWeight={"bold"} >
               <Link to={`/${user?.username}`}>

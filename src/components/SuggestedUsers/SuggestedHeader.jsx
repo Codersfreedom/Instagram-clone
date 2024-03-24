@@ -13,7 +13,7 @@ const SuggestedHeader = () => {
         <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"} >
             <Flex alignItems={"center"} gap={2} >
                 <ChakraLink as={RouterLink} to={`${user?.username}`} >
-                <Avatar src={user?.profilePicURL || ""} name={user?.username} size={"lg"} />
+                <Avatar src={user?.profilePicURL || ""} name={user?.username} cursor={"pointer"} size={"lg"} />
 
                 </ChakraLink>
                 <Text fontSize={12} fontWeight={'bold'}>
