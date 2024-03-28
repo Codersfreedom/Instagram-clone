@@ -12,19 +12,24 @@ import useShowToast from "./useShowToast";
 import { useState } from "react";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import usePostStore from "../store/usePostStore";
+import { useLocation } from "react-router-dom";
 
 
 const useCreatePost = () => {
   const showToast = useShowToast();
   const [isLoading, setIsloading] = useState(false);
 
+  const pathname = useLocation();
+
   const{user} = useAuthStore();
+  const {userProfile} = useProfileStore();
   const { createPost } = usePostStore();
   const { addPost } = useProfileStore();
 
   const handleCreatePost = async (selectedImg, caption) => {
     if(isLoading) return;
     if (!selectedImg) throw new Error("Please select an image");
+    if(!user) return showToast("Error","Please login to create a post","error");
     setIsloading(true);
     const newPost = {
       caption: caption,
@@ -45,15 +50,21 @@ const useCreatePost = () => {
 
       newPost.imageURL = downlodeURL;
 
-      createPost({
+      if( user.uid === userProfile.uid){
+       createPost({
         ...newPost,
         id: postDocRef.id,
-      });
+      }); 
+      }
+      
 
-      addPost({
+      if( pathname !== "/" &&  user.uid === userProfile.uid){
+        addPost({
         ...newPost,
         id: postDocRef.id,
       });
+      }
+      
       showToast("Success", "Post created successfully", "success");
     } catch (error) {
       showToast("Error", error.message, "error");

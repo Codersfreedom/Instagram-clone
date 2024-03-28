@@ -8,7 +8,7 @@ import useProfileStore from "../store/UserProfileStore";
 const useGetPostByUserId = () => {
     
   const showToast = useShowToast();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const{posts,setPosts} = usePostStore();
   const {userProfile} = useProfileStore();
 
@@ -16,7 +16,6 @@ const useGetPostByUserId = () => {
     const getPostByUserId = async () => {
       setIsLoading(true);
       if (!userProfile) {
-        setIsLoading(false);
         setPosts([]);
         return;
       }

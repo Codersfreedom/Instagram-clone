@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PostHeader from './PostHeader'
 import PostFooter from './PostFooter'
-import { Box,Flex,Image, Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react'
+import { Box,Image } from '@chakra-ui/react'
 import useGetUsernameByPostId from '../../hooks/useGetUsernameByPostId'
 
 const FeedPost = ({post}) => {

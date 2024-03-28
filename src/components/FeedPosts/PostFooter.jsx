@@ -49,7 +49,7 @@ const PostFooter = ({ post, username, isProfilePage }) => {
       {!isProfilePage && (
         <>
           <Text fontSize={"sm"} fontWeight={700} >
-            {username}_
+            {username}{' '}
             <Text as={"span"} fontWeight={400}  >
              {post.caption}
             </Text>

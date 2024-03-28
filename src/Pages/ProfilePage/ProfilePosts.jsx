@@ -10,7 +10,11 @@ const ProfilePosts = () => {
   const {  posts,isLoading } = useGetPostByUserId();
 
 
-  if (posts?.length == 0) return <NoPostsFound />
+  if (posts?.length === 0 && !isLoading) {
+    return <NoPostsFound />
+
+  }
+  
 
 
   return (

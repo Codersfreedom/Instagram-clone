@@ -9,7 +9,7 @@ import useAuthStore from "../store/authStore";
 
 const useGetPosts = () => {
   
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading,setIsLoading] = useState(true);
     const showToast = useShowToast();
     const{posts,setPosts} = usePostStore();
     const {userProfile} = useProfileStore();
