@@ -16,7 +16,7 @@ const useEditProfile = () => {
     const EditProfile = async (inputs,selectedImg)=>{
         if(isLoading || !user) return
         setIsLoading(true);
-
+        console.log(inputs);
         const storageRef = ref(storage,`profilePic/${user.uid}`)
         const userDocRef = doc(firestore,'users',user.uid)
         let URL = "";
@@ -28,7 +28,7 @@ const useEditProfile = () => {
 
             const updatedUser ={
                 ...user,
-                fullname: inputs.fullname|| user.fullname,
+                fullname: inputs.fullName|| user.fullname,
                 username:inputs.username || user.username,
                 bio:inputs.bio || user.bio,
                 profilePicURL: URL || user.profilePicURL,
